@@ -67,7 +67,7 @@ input:focus {
     outline: none;
 }
 
-/* Adjust the margin between form fields */
+
 form br {
     display: none;
 }
