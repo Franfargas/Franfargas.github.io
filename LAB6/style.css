@@ -1,0 +1,80 @@
+/* body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #6ac8e7; 
+    color: #333; 
+    text-align: center;
+}
+
+/* Styling for the header */
+h1 {
+    color: #0056b3; /* Blue color for the main heading */
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+/* Style for the button */
+#load {
+    background-color: #007bff; /* Blue background for the button */
+    color: white;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+#load:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Styling for the image of the cat */
+#catImg {
+    margin: 20px 0;
+    border-radius: 5px; /* Rounded corners for the image */
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Style for the table of cat facts */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #ddd; /* Light gray border for the cells */
+    text-align: left;
+}
+
+th {
+    background-color: #007bff; /* Blue header cells */
+    color: white;
+}
+
+/* Alternating row colors for the table */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+tr:nth-child(odd) {
+    background-color: #e9ecef; /* Slightly darker gray for odd rows */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #333; 
+    color: white;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
