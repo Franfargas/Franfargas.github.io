@@ -10,14 +10,35 @@
 <body>
     <div class="container mt-5">
         <h1>Welcome to the IP Address Management Tool</h1>
-        <p>Select an option from the menu below to begin.</p>
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="check-ip.html">Check IP</a></li>
-            <li class="nav-item"><a class="nav-link" href="report-ip.html">Report IP</a></li>
-            <li class="nav-item"><a class="nav-link" href="get-blacklist.html">Get Blacklist</a></li>
-        </ul>
+        <p>Select an option from the menu below to begin:</p>
+        <div class="mb-3">
+            <!-- Check IP Address -->
+            <h2>Check IP Address</h2>
+            <input type="text" id="checkIpInput" placeholder="Enter IP to check" class="form-control">
+            <button onclick="checkIP()" class="btn btn-primary mt-2">Check IP</button>
+            <div id="checkResult" class="mt-2"></div>
+        </div>
         
+        <div class="mb-3">
+            <!-- Report IP Address -->
+            <h2>Report IP Address</h2>
+            <input type="text" id="reportIpInput" placeholder="Enter IP to report" class="form-control">
+            <button onclick="reportIP()" class="btn btn-danger mt-2">Report IP</button>
+            <div id="reportResult" class="mt-2"></div>
+        </div>
+
+        <div class="mb-3">
+            <!-- Get Blacklist by Country -->
+            <h2>Get Blacklist</h2>
+            <select id="countrySelect" class="form-select">
+                <option value="US">United States</option>
+                <option value="MX">Mexico</option>
+                <option value="CA">Canada</option>
+                <!-- Add other countries as needed -->
+            </select>
+            <button onclick="getBlacklistByCountries()" class="btn btn-secondary mt-2">Get Blacklist</button>
+            <div id="blacklistResult" class="mt-2"></div>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>

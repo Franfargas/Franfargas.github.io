@@ -1,32 +1,47 @@
-// Function to check an IP address
+// Function that is  checking information about an IP address
 function checkIP() {
-    const ipInput = document.getElementById('checkIpInput');
-    const ip = ipInput.value.trim();
-    const apiUrl = `hhttps://api.abuseipdb.com/api/v2/check?ipAddress=8.8.8.8`;
+    const ip = document.getElementById('checkIpInput').value.trim(); 
+    if (!ip) {
+        alert('Please enter an IP address to check.');
+        return;
+    }
 
+    const apiUrl = `https://api.abuseipdb.com/api/v2/check?ipAddress=${ip}`;
     fetch(apiUrl, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445'  // Replace 'YOUR_API_KEY' with your actual API key
+            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445' 
         }
     })
     .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+            return response.json().then(data => { throw new Error(`${data.errors[0].detail} (Status code: ${response.status})`); });
+        }
         return response.json();
     })
     .then(data => {
-        document.getElementById('checkResult').innerHTML = `IP: ${data.data.ipAddress}, Abuse Score: ${data.data.abuseConfidenceScore}`;
+        if (data && data.data) {
+            document.getElementById('checkResult').innerHTML = `IP Address: ${data.data.ipAddress}, Abuse Confidence Score: ${data.data.abuseConfidenceScore}`;
+        } else {
+            document.getElementById('checkResult').innerHTML = ' There is no data found for this IP address.';
+        }
     })
     .catch(error => {
         console.error('Error:', error);
-        document.getElementById('checkResult').innerHTML = `Error fetching data: ${error.message}`;
+        document.getElementById('checkResult').innerHTML = `Error checking IP: ${error.message}`;
     });
 }
 
-// Function to report an IP address
+
+// Function that is  to report an IP address
 function reportIP() {
     const ip = document.getElementById('reportIpInput').value.trim();
+    if (!ip) {
+        alert('Please enter an IP address to report.');
+        return;
+    }
+
     const body = JSON.stringify({
         ipAddress: ip,
         categories: '18,19',
@@ -38,23 +53,21 @@ function reportIP() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445'  // Replace 'YOUR_API_KEY' with your actual API key
+            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445'  
         },
         body: body
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        if (data.data) {
-            document.getElementById('reportResult').innerHTML = 'IP reported successfully';
+        if (response.status !== 200) {
+            console.error('Error:', data.errors[0].detail);
+            document.getElementById('reportResult').innerHTML = `Error: ${data.errors[0].detail}`;
         } else {
-            document.getElementById('reportResult').innerHTML = 'Failed to report IP';
+            document.getElementById('reportResult').innerHTML = 'IP reported successfully';
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error reporting IP:', error);
         document.getElementById('reportResult').innerHTML = `Error reporting IP: ${error.message}`;
     });
 }
@@ -62,19 +75,16 @@ function reportIP() {
 // Function to get a blacklist by country
 function getBlacklistByCountries() {
     const selectedCountry = document.getElementById('countrySelect').value;
-    const apiUrl = `https://api.abuseipdb.com/api/v2/blacklist?onlyCountries=US,MX,CA`;
+    const apiUrl = `https://api.abuseipdb.com/api/v2/blacklist?onlyCountries=${selectedCountry}`;
 
     fetch(apiUrl, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445'  // Replace 'YOUR_API_KEY' with your actual API key
+            'Key': 'b8c97c2963616723c8b58e8a8ebe8a70e4c8e8f19e349fc8541316f7010d782e4464b8f73aad8445'  
         }
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.data && data.data.length > 0) {
             const resultHtml = data.data.map(ip => `<li>${ip.ipAddress} - Score: ${ip.abuseConfidenceScore}</li>`).join('');
@@ -84,7 +94,7 @@ function getBlacklistByCountries() {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error fetching data:', error);
         document.getElementById('blacklistResult').innerHTML = `Error fetching data: ${error.message}`;
     });
 }
