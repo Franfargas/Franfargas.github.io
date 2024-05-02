@@ -23,6 +23,8 @@ function showSection(sectionId) {
         }
     });
 }
+
+// check IP
 async function checkIP() {
     const ip = document.getElementById('checkIpInput').value.trim();
     if (!ip) {
@@ -54,11 +56,6 @@ async function checkIP() {
         document.getElementById('checkResult').innerHTML = `Error checking IP: ${error.message}`;
     }
 }
-
-// Include other functions for reportIP, toggleHistory, updateHistory, displayHistory, clearHistory, fetchBlacklistData, filterBlacklistByCountry, displayBlacklistData
-
-// Add event listeners or initialization code if needed
-
 // report IP
 async function reportIP() {
     const ip = document.getElementById('reportIpInput').value.trim();
@@ -140,7 +137,7 @@ async function fetchBlacklistData() {
         if (!response.ok) {
             throw new Error(`${data.errors ? data.errors[0].detail : 'Unknown error'} (Status code: ${response.status})`);
         }
-        globalBlacklistData = data.data; // Assume globalBlacklistData is already declared
+        globalBlacklistData = data.data; 
         displayBlacklistData(globalBlacklistData);
     } catch (error) {
         console.error('Error fetching data:', error);
