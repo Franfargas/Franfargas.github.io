@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
@@ -156,4 +155,3 @@ function displayBlacklistData(data) {
     const listHtml = data.map(ip => `<li class="list-group-item">${ip.ipAddress} - Score: ${ip.abuseConfidenceScore}</li>`).join('');
     document.getElementById('blacklistResult').innerHTML = `<ul class="list-group">${listHtml}</ul>`;
 }
-
